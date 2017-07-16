@@ -13,6 +13,9 @@ import com.globant.maguila.vertx.poc.vrt.ServerHttpVerticle;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.XmlConfigBuilder;
 
+import io.vertx.config.ConfigRetriever;
+import io.vertx.config.ConfigRetrieverOptions;
+import io.vertx.config.ConfigStoreOptions;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
@@ -33,7 +36,6 @@ public class App {
 	private static final String VERTX_CONFIG_FILE_JVM_PARAM = "vertx.config-file";
 	private static final String HAZELCAST_CLUSTER_CONFIG_FILE_JVM_PARAM = "hazelcast.cluster-config-file";
 	private final static String VERTX_OPTIONS_CONFIG_FIELD = "vertxOptions";
-	private final static String VERT_MS_OPTIONS_CONFIG_FIELD = "vertxMsOptions";
 	
 	public static void main(String[] args) {
 		App app = new App();
@@ -43,6 +45,7 @@ public class App {
 	public void startVertxApp() {
 		
 		ClusterManager clusterManager = getClusterManager();
+
 		JsonObject vertxConfig = loadConfig();
 		DeploymentOptions deploymentOptions = new DeploymentOptions()
 				.setConfig(vertxConfig);
@@ -51,9 +54,35 @@ public class App {
 					.getJsonObject(VERTX_OPTIONS_CONFIG_FIELD))
 					.setClusterManager(clusterManager);
 		
-		
 		Vertx vertx = Vertx.vertx(vertxOptions);
+		
+		ConfigStoreOptions configStoreOptions = 
+				new ConfigStoreOptions(vertxConfig.getJsonObject("configStoreOptions"));
+		ConfigRetrieverOptions configRetrieveOptions = new ConfigRetrieverOptions()
+				.setScanPeriod(2000)
+				.addStore(configStoreOptions);
+		
+		vertx.runOnContext(v -> {
+			ConfigRetriever configRetriever = ConfigRetriever.create(vertx, configRetrieveOptions);
+			
+			configRetriever.getConfig(json -> {
+				logger.info("original: " + json.result().encode());
+			});
+			
+			configRetriever.listen(change -> {
+				  // Previous configuration
+				  JsonObject previous = change.getPreviousConfiguration();
+				  logger.info("previous: " + previous.encode());
+				  // New configuration
+				  JsonObject conf = change.getNewConfiguration();
+				  logger.info("new: " + conf.encode());
+			});
+		});
+		
+
+		
 		startVertxApp(vertx, deploymentOptions);
+		
 
 	}
 

@@ -9,6 +9,14 @@
 		"http.port":8080,
 		"root.endpoint.uri": "/ping",
 		"root.endpoint.httpmethod":"GET"
-		
+	},
+	"configStoreOptions": {
+		"type": "http",
+		"format": "json",
+		"config": {
+			"host":"localhost",
+			"port":3000,
+			"path":"/"
+		}
 	}
 }
