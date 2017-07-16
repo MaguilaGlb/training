@@ -4,3 +4,4 @@
 /log/
 /.vertx/
 /.settings/
+log.*

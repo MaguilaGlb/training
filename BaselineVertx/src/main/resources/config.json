@@ -1,0 +1,12 @@
+{
+	"vertxOptions":{
+		"port":8080,
+		"eventLoopPoolSize":8,
+		"haEnabled":false,
+		"haGroup": "__DEFAULT__",  
+		"blockedThreadCheckInterval":3600000
+	},
+	"vertxMsOptions": {
+	
+	}
+}

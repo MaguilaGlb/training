@@ -5,6 +5,7 @@ import com.globant.maguila.vertx.poc.App;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
 import io.vertx.core.http.HttpServerRequest;
+import io.vertx.core.json.JsonArray;
 
 public class ServerHttpVerticle extends AbstractVerticle {
 
