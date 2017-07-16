@@ -6,8 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javax.management.RuntimeErrorException;
-
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 
@@ -47,7 +45,7 @@ public class App {
 		ClusterManager clusterManager = getClusterManager();
 		JsonObject vertxConfig = loadConfig();
 		DeploymentOptions deploymentOptions = new DeploymentOptions()
-				.setConfig(vertxConfig.getJsonObject(VERT_MS_OPTIONS_CONFIG_FIELD));
+				.setConfig(vertxConfig);
 		VertxOptions vertxOptions = new VertxOptions(
 				vertxConfig
 					.getJsonObject(VERTX_OPTIONS_CONFIG_FIELD))
@@ -99,7 +97,6 @@ public class App {
 			logger.error(errorMsg, ex);
 			throw new RuntimeException(ex);
 		}
-		
 	}
 	
 	private String loadConfigFromFile(String configFilePath) {
