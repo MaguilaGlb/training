@@ -10,6 +10,7 @@ import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 
 import com.globant.maguila.vertx.poc.vrt.ServerHttpVerticle;
+import com.globant.maguila.vertx.poc.vrt.ServiceVerticle;
 import com.hazelcast.config.Config;
 import com.hazelcast.config.XmlConfigBuilder;
 
@@ -60,11 +61,13 @@ public class App {
 
 	protected void startVertxApp(Vertx vertx, DeploymentOptions options) {
 		
-		if (logger.isInfoEnabled())
+		if (logger.isInfoEnabled()){
 			logger.info("Deploy Verticle " + ServerHttpVerticle.class.getName());
-		Future<String> futureHello = Future.future();
-		vertx.deployVerticle(ServerHttpVerticle.class.getName(), 
-				options, futureHello.completer());
+			logger.info("Deploy Verticle " + ServiceVerticle.class.getName());
+		}
+		
+		vertx.deployVerticle(ServerHttpVerticle.class.getName(), options);
+		vertx.deployVerticle(ServiceVerticle.class.getName(), options.setInstances(2));
 	}
 	
 	private JsonObject loadConfig(){

@@ -38,7 +38,11 @@
 		  <artifactId>vertx-config</artifactId>
 		  <version>3.4.2</version>
 		</dependency>
-
+		<dependency>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-circuit-breaker</artifactId>
+			<version>${vertx.version}</version>
+		</dependency>
 
 
 		<!-- LOG4J -->
