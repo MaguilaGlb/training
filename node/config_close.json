@@ -1,0 +1,14 @@
+{
+	"vertxOptions":{
+		"eventLoopPoolSize":4,
+		"haEnabled":false,
+		"haGroup": "__DEFAULT__",  
+		"blockedThreadCheckInterval":3600000
+	},
+	"ServerHttpVerticle": {
+		"http.port":8080,
+		"root.endpoint.uri": "/ping",
+		"root.endpoint.httpmethod":"GET",
+		"circuit.breaker.status": "close"
+	}
+}
