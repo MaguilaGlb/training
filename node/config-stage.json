@@ -3,7 +3,7 @@
 	  "eventLoopPoolSize": 8,  
 	  "workerPoolSize": 20,  
 	  "internalBlockingPoolSize": 20,  
-	  "blockedThreadCheckInterval": 100000,  
+	  "blockedThreadCheckInterval": 1000,  
 	  "maxEventLoopExecuteTime": 2000000000,  
 	  "maxWorkerExecuteTime":  60000000000,  
 	  "haEnabled": false,  
@@ -109,12 +109,7 @@
     },
 	
 	"authorizationService" :{
-		"httpServerOptions" : {
-			"port": 8082,
-			"acceptBacklog" : 10000,
-			"sendBufferSize" : 4096,
-			"receiveBufferSize" : 4096
-		},
+		"httpPort": 8082,
 		"restApiPath" : "/auth/gettoken",
 		"httpMethod":"GET",
 		"anonymousUserName":"anonymousUser",
@@ -158,13 +153,6 @@
 		            "path" : null,
 			        "password" : "fox2017$",
 			        "verifyHost" : false
-			    },
-			    "webClientOptions" : {
-			    	"keepAlive" : true,
-			    	"idleTimeout" : 270,
-			    	"maxPoolSize" : 30,
-			    	"pipelining" : false,
-			    	"pipeliningLimit" : 15
 			    }
             },
             "circuitBreaker":{
@@ -185,13 +173,6 @@
 			    "trustStore":{
 				    "password":"fox2017$"
 			    },
-			    "webClientOptions" : {
-			    	"keepAlive" : true,
-			    	"idleTimeout" : 270,
-			    	"maxPoolSize" : 30,
-			    	"pipelining" : false,
-			    	"pipeliningLimit" : 15
-			    },
 			    "tokenDuration" : 1000000,
 			    "idleTimeout" : 0,
 			    "headerName" : "authorization",
@@ -210,7 +191,7 @@
 		        "maxFailures": 5,
 		        "timeout": 5000,
 		        "resetTimeout": 10000,
-		        "killswitch" : true
+		        "killswitch" : false
 		    }
         }
 	}

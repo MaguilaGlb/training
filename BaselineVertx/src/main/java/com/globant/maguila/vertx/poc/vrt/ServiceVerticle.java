@@ -1,5 +1,7 @@
 package com.globant.maguila.vertx.poc.vrt;
 
+import java.time.LocalTime;
+
 import org.slf4j.Logger;
 
 import io.vertx.core.AbstractVerticle;
@@ -47,7 +49,13 @@ public class ServiceVerticle extends AbstractVerticle {
 		case A: message = "PANG!"; break;
 		case B: message = "BONG!"; break;
 		}
-		request.reply(new JsonObject().put("message", message));
+		request.reply(new JsonObject()
+				.put("message", message)
+				.put("source from", request.body().getString("from"))
+				.put("source date", request.body().getString("date"))
+				.put("reply from", this.getClass().getName() + " " + Thread.currentThread().getId())
+				.put("reply date", LocalTime.now().toString())
+				);
 	}
 	
 	private enum Event {

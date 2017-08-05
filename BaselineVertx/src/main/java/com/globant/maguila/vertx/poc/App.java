@@ -52,9 +52,22 @@ public class App {
 					.getJsonObject(VERTX_OPTIONS_CONFIG_FIELD))
 					.setClusterManager(clusterManager);
 		
-		Vertx vertx = Vertx.vertx(vertxOptions);
-
-		startVertxApp(vertx, deploymentOptions);
+//		Vertx vertx = Vertx.vertx(vertxOptions);
+//		startVertxApp(vertx, deploymentOptions);
+		
+		Vertx.clusteredVertx(vertxOptions, res -> {
+			if (res.succeeded()) {
+				
+				if(logger.isDebugEnabled()){
+					logger.debug("it has launched vertx cluster with config: [cluster.xml]");
+				}
+				Vertx vertx = res.result();
+				startVertxApp(vertx, deploymentOptions);				
+				
+			} else {
+				logger.error("Error during vertx cluster initialization ", res.cause());
+			}
+		});
 		
 
 	}

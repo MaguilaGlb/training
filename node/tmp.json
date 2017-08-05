@@ -3,7 +3,7 @@
 	  "eventLoopPoolSize": 8,  
 	  "workerPoolSize": 20,  
 	  "internalBlockingPoolSize": 20,  
-	  "blockedThreadCheckInterval": 100000,  
+	  "blockedThreadCheckInterval": 1000,  
 	  "maxEventLoopExecuteTime": 2000000000,  
 	  "maxWorkerExecuteTime":  60000000000,  
 	  "haEnabled": false,  
@@ -82,7 +82,7 @@
 		{
 			"className": "com.fox.platform.authsrv.vrt.AuthorizationServiceVerticle",
 			"ha": false,
-			"instances": 10,
+			"instances": 20,
 			"worker": false,
 			"multiThreaded" : false 
 		}
@@ -109,12 +109,7 @@
     },
 	
 	"authorizationService" :{
-		"httpServerOptions" : {
-			"port": 8082,
-			"acceptBacklog" : 10000,
-			"sendBufferSize" : 4096,
-			"receiveBufferSize" : 4096
-		},
+		"httpPort": 8082,
 		"restApiPath" : "/auth/gettoken",
 		"httpMethod":"GET",
 		"anonymousUserName":"anonymousUser",
@@ -150,7 +145,7 @@
 		"proxyURM" : {
 		    "address" : "authServProxyURMAdd", 
             "endpoint":{
-                "host": "rest-stage-va.evergent.com",
+                "host": "varestload.evergent.com",
                 "port": 443,
                 "ssl": true,
                 "path": "/ev/hasAccessTo?cpid=FOX&action=VIEW&ip=1.1.11.1&urn=${urn}&userToken=${userToken}&platform=web&deviceId=1001",
@@ -161,10 +156,7 @@
 			    },
 			    "webClientOptions" : {
 			    	"keepAlive" : true,
-			    	"idleTimeout" : 270,
-			    	"maxPoolSize" : 30,
-			    	"pipelining" : false,
-			    	"pipeliningLimit" : 15
+			    	"idleTimeout" : 270
 			    }
             },
             "circuitBreaker":{
@@ -187,10 +179,7 @@
 			    },
 			    "webClientOptions" : {
 			    	"keepAlive" : true,
-			    	"idleTimeout" : 270,
-			    	"maxPoolSize" : 30,
-			    	"pipelining" : false,
-			    	"pipeliningLimit" : 15
+			    	"idleTimeout" : 270
 			    },
 			    "tokenDuration" : 1000000,
 			    "idleTimeout" : 0,
@@ -210,7 +199,7 @@
 		        "maxFailures": 5,
 		        "timeout": 5000,
 		        "resetTimeout": 10000,
-		        "killswitch" : true
+		        "killswitch" : false
 		    }
         }
 	}
