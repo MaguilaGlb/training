@@ -60,13 +60,16 @@ public class ServerHttpVerticle extends AbstractVerticle {
 		vertx
 		.eventBus()
 		.send(event.name(), requestMessage, reply -> {
-			if(logger.isDebugEnabled()) logger.debug("Receive answer: " + reply.succeeded() + " body: " + reply.result().body());
+			
 			if(reply.succeeded()){
+				if(logger.isDebugEnabled()) logger.debug("Receive answer: " + reply.succeeded() + " body: " + reply.result().body());
 				request
 					.response()	
 					.putHeader("content-type", "application/json; charset=utf-8")
 					.end(Json.encodePrettily(reply.result().body()));
-			}
+			} else {
+				if(logger.isDebugEnabled()) logger.debug("error " + reply.cause());
+			} 
 		});
 	}
 	
