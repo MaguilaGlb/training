@@ -21,7 +21,7 @@ public class ServerHttpVerticle extends AbstractVerticle {
 	public void start(Future<Void> startFuture) throws Exception {
 		
 		verticleConfig = config().getJsonObject(
-				ServerHttpVerticle.class.getSimpleName());
+				ServerHttpVerticle.class.getSimpleName(), new JsonObject());
 		if(logger.isInfoEnabled())
 			logger.info("Start " + this.getClass().getName() 
 					+ " with config: "+ verticleConfig);

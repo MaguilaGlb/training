@@ -35,8 +35,10 @@ public class AppTest {
 			port = 8080;
 		}
 
+		JsonObject ServerHttpVerticleConfig = new JsonObject().put("http.port", port);
+				
 		DeploymentOptions options = new DeploymentOptions()
-		    .setConfig(new JsonObject().put("http.port", port)
+		    .setConfig(new JsonObject().put("ServerHttpVerticle", ServerHttpVerticleConfig)
 		    );
 		
 		vertx = Vertx.vertx();
@@ -55,9 +57,9 @@ public class AppTest {
 	public void testMyApplication(TestContext context) {
 		final Async async = context.async();
 
-		vertx.createHttpClient().getNow(port, "localhost", "/", response -> {
+		vertx.createHttpClient().getNow(port, "localhost", "/ping?event=A", response -> {
 			response.handler(body -> {
-				context.assertTrue(body.toString().contains("ok"));
+				context.assertTrue(!body.toString().isEmpty());
 				async.complete();
 			});
 		});
