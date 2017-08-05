@@ -68,7 +68,7 @@ public class ServerHttpVerticle extends AbstractVerticle {
 					.putHeader("content-type", "application/json; charset=utf-8")
 					.end(Json.encodePrettily(reply.result().body()));
 			} else {
-				if(logger.isDebugEnabled()) logger.debug("error " + reply.cause());
+				if(logger.isDebugEnabled()) logger.error("error " + reply.cause());
 			} 
 		});
 	}
