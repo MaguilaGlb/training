@@ -1,6 +1,6 @@
 {
 	"nice":{
-		"var":"dummy10"
+		"var":"dummy"
 	},
 	"vertxOptions":{
 		"eventLoopPoolSize":8,
