@@ -52,9 +52,7 @@ public class App {
 					.getJsonObject(VERTX_OPTIONS_CONFIG_FIELD))
 					.setClusterManager(clusterManager);
 		
-//		Vertx vertx = Vertx.vertx(vertxOptions);
-//		startVertxApp(vertx, deploymentOptions);
-		
+	
 		Vertx.clusteredVertx(vertxOptions, res -> {
 			if (res.succeeded()) {
 				
