@@ -6,5 +6,5 @@
 /.settings/
 /NRDWPluginIntergrationSample/
 /vertx-microservices-workshop
-/vertx3-ping-pong/
+
 output*.log
