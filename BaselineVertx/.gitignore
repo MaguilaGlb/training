@@ -5,3 +5,4 @@
 /.vertx/
 /.settings/
 log.*
+*generated
