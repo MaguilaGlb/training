@@ -4,8 +4,11 @@ import java.time.LocalTime;
 
 import org.slf4j.Logger;
 
+import com.globant.maguila.vertx.poc.guice.Module;
 import com.globant.maguila.vertx.poc.service.UserService;
 import com.globant.maguila.vertx.poc.service.UserServiceImpl;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
@@ -26,7 +29,7 @@ public class ServiceVerticle extends AbstractVerticle {
 	
 	@Override
 	public void start(Future<Void> startFuture) throws Exception {
-		
+		Injector injector = Guice.createInjector(new Module());
 		verticleConfig = config().getJsonObject(
 				ServerHttpVerticle.class.getSimpleName());
 		if(logger.isInfoEnabled())
@@ -37,7 +40,7 @@ public class ServiceVerticle extends AbstractVerticle {
 		vertx.eventBus().consumer(Event.B.name(), this::replyB);	
 		
 		discovery = ServiceDiscovery.create(vertx);
-		userService = new UserServiceImpl();
+		userService = injector.getInstance(UserService.class);
 		ProxyHelper.registerService(UserService.class, vertx, userService, UserServiceImpl.SERVICE_NAME);
 		Record serviceRecord = EventBusService.createRecord(UserServiceImpl.SERVICE_NAME, UserServiceImpl.SERVICE_NAME, UserService.class);
 		
