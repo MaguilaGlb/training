@@ -1,0 +1,110 @@
+{
+  "schema_version": "1.0",
+  "offering": {
+    "name": "Architecture Definition",
+    "slug": "architecture-definition"
+  },
+  "generated_at": "2026-05-12T14:59:44Z",
+  "output_path": null,
+  "token_budget_path": null,
+  "supervision_plan_path": null,
+  "budget_audit_path": null,
+  "capabilities": [
+    {
+      "name": "software-architecture",
+      "session_id": "sa-001",
+      "sdlc_phase": "discovery",
+      "has_review_verdict": false,
+      "init_params": {
+        "input_folder": "$PROJECT_DIR/artifacts/inputs",
+        "output_folder": "$PROJECT_DIR/artifacts/outputs/software-architecture",
+        "project_name": "project",
+        "current_architecture": "current-architecture.md",
+        "technical_interview": "transcripts/tech-transcript.md",
+        "meeting_recording": "recordings",
+        "prd_path": "$PROJECT_DIR/artifacts/outputs/product-definition/prd",
+        "epics_path": "$PROJECT_DIR/artifacts/outputs/product-definition/epics",
+        "domain_boundaries": "domain-boundaries",
+        "adrs": "adrs",
+        "adrs_summary": "adrs-summary",
+        "tech_stack": "tech-stack",
+        "target_architecture": "target-architecture",
+        "dtr_mode": "brownfield",
+        "project_brief_path": "",
+        "dtr_source_path": "",
+        "dtr": "dtr",
+        "derive_validation_tools": true,
+        "validation_tools_output_path": "./context-pack"
+      },
+      "produces": [
+        "adrs_path",
+        "domain_boundaries_path",
+        "dtr_path",
+        "target_architecture_path",
+        "validation_tools_path"
+      ],
+      "consumes": [],
+      "concurrent_streams": 1,
+      "scope_axis": null
+    }
+  ],
+  "skipped_capabilities": [],
+  "execution_phases": [
+    {
+      "phase": 1,
+      "capabilities": [
+        "software-architecture"
+      ],
+      "prerequisite_artifacts": []
+    }
+  ],
+  "dag": {
+    "unlock_chain": [],
+    "parallel_windows": [],
+    "critical_path": [
+      "software-architecture"
+    ]
+  },
+  "scope_commitments": [],
+  "step_execution_messages": [
+    {
+      "capability": "software-architecture",
+      "step_id": "discovering-bounded-contexts",
+      "message": "",
+      "source": "custom",
+      "optional": true
+    },
+    {
+      "capability": "software-architecture",
+      "step_id": "generating-adrs",
+      "message": "",
+      "source": "custom",
+      "optional": true
+    },
+    {
+      "capability": "software-architecture",
+      "step_id": "establishing-architecture-foundation",
+      "message": "",
+      "source": "custom",
+      "optional": true
+    },
+    {
+      "capability": "software-architecture",
+      "step_id": "specifying-architecture",
+      "message": "",
+      "source": "custom",
+      "optional": true
+    },
+    {
+      "capability": "software-architecture",
+      "step_id": "generating-toolchain-record",
+      "message": "",
+      "source": "custom",
+      "optional": true
+    }
+  ],
+  "quality_gate_policy": {
+    "standard": "Poll session status --json every 60s. Gate approved via Stepwise UI."
+  },
+  "feed_in_artifacts": []
+}
